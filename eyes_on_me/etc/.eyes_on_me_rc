@@ -3,7 +3,7 @@
 
     "daemon": {
         "pid": "/tmp/eyes_on_me.pid",
-        "update-interval": 10,
+        "update-interval": 60,
         "log-path": "/home/dehun/.eyes-on-me.log"
     },
 
@@ -33,6 +33,6 @@
     "webcam-strategy": {
         "shot-path": "/tmp/eyes-on-me-shoot.jpg",
         "command": "fswebcam %(shot_path)s",
-        "coeff": 0.7
+        "coeff": 0.6
     }
 }
