@@ -16,7 +16,7 @@ class TimedStrategy(LightningStrategy):
         return [(k, sun[k]) for k in
                 self.light_table.keys()]
 
-    def lightning_for_time(self, date):
+    def _lightning_for_time(self, date):
         # get lights
         lights = self._get_city_lights(date)
         # get two closer lights from table
@@ -35,4 +35,4 @@ class TimedStrategy(LightningStrategy):
     def get_lightning(self):
         astra = astral.Astral()
         city = astra[config['timed-strategy']['city']]
-        return self.lightning_for_time(datetime.datetime.now(city.tz))
+        return self._lightning_for_time(datetime.datetime.now(city.tz))

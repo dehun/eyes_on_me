@@ -1,18 +1,44 @@
 #!/usr/bin/python
-import sys
 import argparse
+import daemonize
+import sched
+import time
 
+from eyes_on_me.config import config
 from eyes_on_me import lights
 
 
-def tune_lights():
+def daemon_tune_lights():
+    logging.info("daemon tuning lights")
+    lights.tune_lights()
+
+def daemon_tune_lights_loop():
+    scheduler = sched.scheduler(time.time, time.sleep)
+    scheduler.enter(config['daemon']['update-interval'], 1,
+                    daemon_tune_lights, [])
+    scheduler.run()
+
+
+def daemon():
+    daemon = daemonize.Daemonize(
+        app="eyes_on_me",
+        action=daemon_tune_lights_loop,
+        pid=config['daemon']['pid'])
+    daemon.start()
+
+
+def tune_lights_once():
     lights.tune_lights()
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="saving your eyes by adjusting the backlight and wb")
-    parser.add_argument("--daemon", help="daemonize the process of adjusting")
-    return parser.parse_args(sys.argv)
+    mode_group = parser.add_mutually_exclusive_group()
+    mode_group.add_argument("--daemon", help="daemonize the process of adjusting",
+                            action='store_true')
+    mode_group.add_argument("--once", help="adjust once",
+                            action='store_true')
+    return parser.parse_args()
 
 
 def main():
@@ -20,9 +46,9 @@ def main():
     args = parse_args()
     if args.daemon:
         daemon()
-    else:
-        tune_lights()
+    elif args.once:
+        tune_lights_once()
 
 
-if __name __ == '__main__':
+if __name__ == '__main__':
     main()
