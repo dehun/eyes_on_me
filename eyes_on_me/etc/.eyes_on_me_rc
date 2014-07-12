@@ -1,5 +1,5 @@
 {
-    "strategy": "timed",
+    "strategy": "webcam",
 
     "daemon": {
         "pid": "/tmp/eyes_on_me.pid",
@@ -27,5 +27,11 @@
             "sunset": 0.6,
             "dusk": 0.2
         }
+    },
+
+    "webcam-strategy": {
+        "shot-path": "/tmp/eyes-on-me-shoot.jpg",
+        "command": "fswebcam %(shot_path)s",
+        "coeff": 0.7
     }
 }

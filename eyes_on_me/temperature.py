@@ -34,6 +34,21 @@ def color_temperature_to_rgb(kelvin):
         return kelvin_table[normalized_kelvin]
 
 
+def normalized_rgb_to_color_temperature(nrgb):
+    (nr, ng, nb) = nrgb
+
+    def rgb_deviation(x):
+        nx = normalize_rgb(x[1])
+        d = (abs(nx[0] - nr) +
+             abs(nx[1] - ng) + abs(nx[2] - nb))
+        return d
+
+    min_kelvins = min(kelvin_table.items(),
+                      key=rgb_deviation)
+
+    return min_kelvins[0]
+
+
 def normalize_rgb(rgb):
     rgb = [float(x) for x in rgb]
     median = sum(rgb) / len(rgb)
@@ -61,14 +76,4 @@ def get_temperature():
         out)
     (nr, ng, nb) = (float(x) for x in reg.groups())
     # find nearest values
-
-    def rgb_deviation(x):
-        nx = normalize_rgb(x[1])
-        d = (abs(nx[0] - nr) +
-             abs(nx[1] - ng) + abs(nx[2] - nb))
-        return d
-
-    min_kelvins = min(kelvin_table.items(),
-                      key=rgb_deviation)
-
-    return min_kelvins[0]
+    return normalized_rgb_to_color_temperature((nr, ng, nb))
