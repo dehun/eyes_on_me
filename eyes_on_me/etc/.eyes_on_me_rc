@@ -1,0 +1,23 @@
+{
+    "strategy": "timed",
+    "backlight": {
+        "min": 5,
+        "normal": 20,
+        "max": 45
+    },
+    "wb_balance": {
+        "min": 4000,
+        "normal": 5000,
+        "max": 6000
+    },
+    "timed-strategy": {
+        "city": "Amsterdam",
+        "light-table": {
+            "dawn": 0.2,
+            "sunrise": 0.6,
+            "noon": 1.0,
+            "sunset": 0.6,
+            "dusk": 0.2
+        }
+    }
+}
