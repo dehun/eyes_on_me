@@ -3,7 +3,8 @@
 
     "daemon": {
         "pid": "/tmp/eyes_on_me.pid",
-        "update-interval": 360
+        "update-interval": 10,
+        "log-path": "/home/dehun/.eyes-on-me.log"
     },
 
     "backlight": {

@@ -3,7 +3,6 @@ import eyes_on_me.backlight
 import eyes_on_me.temperature
 import eyes_on_me.timed_strategy
 import logging
-logging.basicConfig(level=logging.DEBUG)
 import eyes_on_me.webcam_strategy
 
 
