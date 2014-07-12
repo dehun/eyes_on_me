@@ -7,4 +7,4 @@ def set_backlight(level):
 
 
 def get_backlight():
-    return int(string.strip(subprocess.check_output("xbacklight", shell=True)))
+    return float(string.strip(subprocess.check_output("xbacklight", shell=True)))

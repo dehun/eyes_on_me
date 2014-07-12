@@ -1,4 +1,5 @@
 import subprocess
+import re
 
 
 kelvin_table = {
@@ -33,14 +34,41 @@ def color_temperature_to_rgb(kelvin):
         return kelvin_table[normalized_kelvin]
 
 
-def set_temperature(kalvin):
-    rgb = color_temperature_to_rgb(kalvin)
+def normalize_rgb(rgb):
     rgb = [float(x) for x in rgb]
-    # normalize around 1.0
     median = sum(rgb) / len(rgb)
     normalized_rgb = [x / median for x in rgb]
+    return normalized_rgb
+
+
+def set_temperature(kalvin):
+    rgb = color_temperature_to_rgb(kalvin)
+
+    # normalize around 1.0
+    normalized_rgb = normalize_rgb(rgb)
     # set via xgamma
     (r, g, b) = normalized_rgb
     subprocess.check_call("xgamma -rgamma %s" % r, shell=True)
     subprocess.check_call("xgamma -ggamma %s" % g, shell=True)
     subprocess.check_call("xgamma -bgamma %s" % b, shell=True)
+
+
+def get_temperature():
+    # find
+    out = subprocess.check_output("xgamma 2>&1", shell=True)
+    reg = re.search(
+        "->.+?Red.+?([0-9]+\.[0-9]+).+?Green.+?([0-9]+\.[0-9]+),.+?Blue.+?([0-9]+\.[0-9]+)",
+        out)
+    (nr, ng, nb) = (float(x) for x in reg.groups())
+    # find nearest values
+
+    def rgb_deviation(x):
+        nx = normalize_rgb(x[1])
+        d = (abs(nx[0] - nr) +
+             abs(nx[1] - ng) + abs(nx[2] - nb))
+        return d
+
+    min_kelvins = min(kelvin_table.items(),
+                      key=rgb_deviation)
+
+    return min_kelvins[0]

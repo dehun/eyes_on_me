@@ -4,6 +4,8 @@ import daemonize
 import sched
 import time
 
+import eyes_on_me.backlight
+import eyes_on_me.temperature
 from eyes_on_me.config import config
 from eyes_on_me import lights
 
@@ -32,12 +34,18 @@ def tune_lights_once():
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="saving your eyes by adjusting the backlight and wb")
+    parser = argparse.ArgumentParser(
+        description="saving your eyes by adjusting the backlight and wb")
     mode_group = parser.add_mutually_exclusive_group()
     mode_group.add_argument("--daemon", help="daemonize the process of adjusting",
                             action='store_true')
     mode_group.add_argument("--once", help="adjust once",
                             action='store_true')
+    mode_group.add_argument("--set-wb", help="sets wb temperature", type=int)
+    mode_group.add_argument("--set-backlight", help="sets backlight", type=int)
+    mode_group.add_argument("--get-wb", help="get wb temperature", action="store_true")
+    mode_group.add_argument("--get-backlight", help="get current backlight level",
+                            action="store_true")
     return parser.parse_args()
 
 
@@ -48,6 +56,15 @@ def main():
         daemon()
     elif args.once:
         tune_lights_once()
+    elif args.set_wb:
+        eyes_on_me.temperature.set_temperature(args.set_wb)
+    elif args.set_backlight:
+        eyes_on_me.backlight.set_backlight(args.set_backlight)
+    elif args.get_wb:
+        print eyes_on_me.temperature.get_temperature()
+    elif args.get_backlight:
+        print eyes_on_me.backlight.get_backlight()
+
 
 
 if __name__ == '__main__':

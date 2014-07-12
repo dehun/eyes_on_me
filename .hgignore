@@ -1,0 +1,7 @@
+syntax: glob
+*.pyc
+*.*~
+build/*
+dist/*
+eyes_on_me.egg-info/*
+.ropeproject/*

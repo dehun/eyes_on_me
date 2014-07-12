@@ -13,8 +13,8 @@
     },
 
     "wb_balance": {
-        "min": 4000,
-        "normal": 5000,
+        "min": 3500,
+        "normal": 4500,
         "max": 6000
     },
 
