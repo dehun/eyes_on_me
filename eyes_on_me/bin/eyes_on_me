@@ -8,6 +8,7 @@ logging.basicConfig(level=logging.WARNING)
 
 import eyes_on_me.backlight
 import eyes_on_me.temperature
+import eyes_on_me.config
 from eyes_on_me.config import config
 from eyes_on_me import lights
 
@@ -20,15 +21,15 @@ def daemon_tune_lights_loop():
     logging.info("We are daemon")
     while True:
         scheduler = sched.scheduler(time.time, time.sleep)
-        scheduler.enter(config['daemon']['update-interval'], 1,
+        scheduler.enter(config()['daemon']['update-interval'], 1,
                         daemon_tune_lights, tuple())
         scheduler.run()
 
 
 def daemon():
     keep_fds = []
-    if "log-path" in config["daemon"]:
-        fh = logging.FileHandler(config["daemon"]["log-path"])
+    if "log-path" in config()["daemon"]:
+        fh = logging.FileHandler(config()["daemon"]["log-path"])
         logging.getLogger().addHandler(fh)
         keep_fds.append(fh.stream.fileno())
 
@@ -36,7 +37,7 @@ def daemon():
     daemon = daemonize.Daemonize(
         app="eyes_on_me",
         action=daemon_tune_lights_loop,
-        pid=config['daemon']['pid'],
+        pid=config()['daemon']['pid'],
         keep_fds=keep_fds)
     daemon.start()
 
@@ -62,6 +63,8 @@ def parse_args():
 
 
 def main():
+    # load config
+    eyes_on_me.config.load_config()
     # parse args
     args = parse_args()
     if args.daemon:

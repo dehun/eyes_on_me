@@ -7,11 +7,11 @@ from eyes_on_me.strategy import LightningStrategy
 
 class TimedStrategy(LightningStrategy):
     def __init__(self):
-        self.light_table = config['timed-strategy']['light-table']
+        self.light_table = config()['timed-strategy']['light-table']
 
     def _get_city_lights(self, date):
         astra = astral.Astral()
-        city = astra[config['timed-strategy']['city']]
+        city = astra[config()['timed-strategy']['city']]
         sun = city.sun(date)
         return [(k, sun[k]) for k in
                 self.light_table.keys()]
@@ -29,10 +29,12 @@ class TimedStrategy(LightningStrategy):
         overall_delta = float((right_light[1] - left_light[1]).seconds)
         left_light_level = self.light_table[left_light[0]]
         right_light_level = self.light_table[right_light[0]]
+        if abs(overall_delta) < 0.001:
+            return left_light_level
         return (left_light_level * right_delta +
                 right_light_level * left_delta) / overall_delta
 
     def get_lightning(self):
         astra = astral.Astral()
-        city = astra[config['timed-strategy']['city']]
+        city = astra[config()['timed-strategy']['city']]
         return self._lightning_for_time(datetime.datetime.now(city.tz))

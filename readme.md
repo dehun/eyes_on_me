@@ -34,7 +34,7 @@ Put the following content into it
             "max": 60
         },
 
-        "wb_balance": {
+        "wb-balance": {
             "min": 3500,
             "normal": 4500,
             "max": 6000
@@ -98,12 +98,14 @@ The content is next
         },
 
         "backlight": {                    // backlight adjusting settings
+            "enable": 1,                  // enable or disable backlight auto adjust, 1 = on, 0 = off
             "min": 5,                     // minimal backlight
             "normal": 20,                 // normal backlight level
             "max": 45                     // maximal backlight level
         },
 
-        "wb_balance": {
+        "wb-balance": {
+            "enable": 1,                  // enable or disable wb temperature auto adjust, 1 = on, 0 = off
             "min": 3500,                  // minimal temparature
             "normal": 4500,               // normal temperature
             "max": 6000                   // maximal temperature
