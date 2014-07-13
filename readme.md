@@ -1,5 +1,5 @@
 # Intro #
-eyes_on_me is simple utility which allows you to control your screen backlight and temperature according to lighning.
+eyes_on_me is simple utility which allows you to control your screen backlight and temperature according to lighting.
 This project is very similar to x.flux and redshift. This is attempt to combine all the best stuff about eyes care on PC.
 
 # Installation #
