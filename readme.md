@@ -25,13 +25,13 @@ Put the following content into it
 
         "daemon": {
             "pid": "/tmp/eyes_on_me.pid",
-            "update-interval": 360
+            "update-interval": 30
         },
 
         "backlight": {
             "min": 5,
-            "normal": 20,
-            "max": 45
+            "normal": 30,
+            "max": 60
         },
 
         "wb_balance": {
@@ -54,7 +54,7 @@ Put the following content into it
         "webcam-strategy": {
             "shot-path": "/tmp/eyes-on-me-shoot.jpg",
             "command": "fswebcam %(shot_path)s",
-            "coeff": 0.7
+            "coeff": 0.6
         }
     }
 
@@ -94,7 +94,7 @@ The content is next
         "daemon": {                       // daemon setting
             "pid": "/tmp/eyes_on_me.pid", // path to daemon's pid
             "update-interval": 60,        // update interval in seconds
-            "log-path": "/home/dehun/.eyes-on-me.log" // path to log file
+            "log-path": "/home/dehun/.eyes-on-me.log" // path to log file. optional.
         },
 
         "backlight": {                    // backlight adjusting settings

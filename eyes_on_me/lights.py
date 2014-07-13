@@ -28,7 +28,8 @@ def get_backlight_for_light(light):
     left_delta = light - left_bl[0]
     right_delta = right_bl[0] - light
     overall_delta = right_bl[0] - left_bl[0]
-    # TODO: zero division
+    if abs(overall_delta) <= 0.0001:
+        return left_bl[1]
     return (left_bl[1] * right_delta +
             right_bl[1] * left_delta) / overall_delta
 
@@ -51,7 +52,8 @@ def get_temperature_for_light(light):
     left_delta = light - left_t[0]
     right_delta = right_t[0] - light
     overall_delta = right_t[0] - left_t[0]
-
+    if abs(overall_delta) <= 0.0001:
+        return left_t[1]
     return (left_t[1] * right_delta +
             right_t[1] * left_delta) / overall_delta
 

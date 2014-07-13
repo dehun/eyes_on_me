@@ -3,14 +3,13 @@
 
     "daemon": {
         "pid": "/tmp/eyes_on_me.pid",
-        "update-interval": 60,
-        "log-path": "/home/dehun/.eyes-on-me.log"
+        "update-interval": 30
     },
 
     "backlight": {
         "min": 5,
-        "normal": 20,
-        "max": 45
+        "normal": 30,
+        "max": 60
     },
 
     "wb_balance": {

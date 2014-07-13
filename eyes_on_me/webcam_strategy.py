@@ -1,5 +1,6 @@
 import subprocess
 import logging
+import os
 
 from eyes_on_me.config import config
 from eyes_on_me.strategy import LightningStrategy
@@ -28,4 +29,7 @@ class WebcamStrategy(LightningStrategy):
             return average_lightning * config["webcam-strategy"]["coeff"]
 
     def get_lightning(self):
-        return self._get_image_lightning(self._take_a_shot())
+        shot_path = self._take_a_shot()
+        lightning = self._get_image_lightning(shot_path)
+        os.remove(shot_path)
+        return lightning

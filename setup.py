@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='eyes_on_me',
-    version='0.2',
+    version='0.3',
     packages=['eyes_on_me'],
     scripts=['eyes_on_me/bin/eyes_on_me'],
     license='BSD',

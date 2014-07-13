@@ -26,16 +26,18 @@ def daemon_tune_lights_loop():
 
 
 def daemon():
-    fh = logging.FileHandler(config["daemon"]["log-path"])
-    logging.getLogger().addHandler(fh)
-
+    keep_fds = []
+    if "log-path" in config["daemon"]:
+        fh = logging.FileHandler(config["daemon"]["log-path"])
+        logging.getLogger().addHandler(fh)
+        keep_fds.append(fh.stream.fileno())
 
     logging.info("Becoming daemon")
     daemon = daemonize.Daemonize(
         app="eyes_on_me",
         action=daemon_tune_lights_loop,
         pid=config['daemon']['pid'],
-        keep_fds=[fh.stream.fileno()])
+        keep_fds=keep_fds)
     daemon.start()
 
 
