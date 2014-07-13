@@ -6,6 +6,8 @@ setup(
     version='0.3',
     packages=['eyes_on_me'],
     scripts=['eyes_on_me/bin/eyes_on_me'],
+    description=('eyes_on_me is simple utility which allows you to '
+                 'control your screen backlight and temperature according to lighting'),
     license='BSD',
     long_description='wb temperature and backlight adjuster according to ',
     install_requires=["astral",
