@@ -7,12 +7,14 @@
     },
 
     "backlight": {
+        "enable": 1,
         "min": 5,
         "normal": 30,
         "max": 60
     },
 
-    "wb_balance": {
+    "wb-balance": {
+        "enable": 1,
         "min": 3500,
         "normal": 4500,
         "max": 6000
