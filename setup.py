@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='eyes_on_me',
-    version='0.4',
+    version='0.5',
     packages=['eyes_on_me'],
     scripts=['eyes_on_me/bin/eyes_on_me'],
     description=('eyes_on_me is simple utility which allows you to '

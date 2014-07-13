@@ -140,3 +140,8 @@ class StrategyChooserTests(unittest.TestCase):
         eyes_on_me.config.mock_config({"strategy": "webcam"})
         self.assertEqual(lights.choose_strategy().__class__.__name__,
                          "WebcamStrategy")
+
+    def unknown_strategy_test(self):
+        eyes_on_me.config.mock_config({"strategy": "unknown_str"})
+        with self.assertRaises(KeyError):
+            lights.choose_strategy()
